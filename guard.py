@@ -9,11 +9,16 @@ import time
 import psutil
 import commands
 
-PROCESS_NAME_SUFFIX = ""
+PROCESS_NAME_SUFFIX = "server"
+PROCESS_PATH = "sh /home/Ron/plug_start.sh"
+
 
 class Guard(object):
     """
     CentOS守护进程
+    root用户下
+    crontab -e
+    */1 * * * * /home/Ron/.pyenv/versions/bpsg/bin/python /home/Ron/guard.py
     """
     def __init__(self, interval = 60):
         """
@@ -28,7 +33,7 @@ class Guard(object):
         重启
         :return: 
         """
-        a, b = commands.getstatusoutput('sh /home/Ron/plug_start.sh')
+        a, b = commands.getstatusoutput(PROCESS_PATH)
         print a, b
 
 
@@ -63,8 +68,6 @@ class Guard(object):
     def start(self):
         """
         :return:
-         # 每分钟检查
-        */1 * * * * /home/Ron/.pyenv/versions/bpsg/bin/python /home/Ron/g.py
         """
         self.checkProcess()
         # while True:
